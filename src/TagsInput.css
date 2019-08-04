@@ -1,0 +1,68 @@
+.container {
+    padding: 16px;
+}
+
+.tagInput {
+    width: auto;
+    display: inline-block;
+    max-width: 100%;
+    line-height: 30px;
+    margin: 2px 0 6px 8px;
+    border: 0;
+    outline: 0;
+    box-shadow: none;
+}
+
+.tagWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    width: 300px;
+    border-radius: 4px;
+    border: 2px solid #8d96a0;
+    padding: 6px 4px 0;
+    cursor: text;
+}
+
+.tagWrapper.active {
+    border-color: #007cba;
+}
+
+.tagWrapper:after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.tag {
+    float: left;
+    margin: 0 8px 8px 0;
+    background-color: #E2E4E7;
+    padding: 0 8px;
+    border-radius: 15px;
+    line-height: 30px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.deleteBtn {
+    appearance: none;
+    outline: 0;
+    border: 0;
+    width: 15px;
+    height: 15px;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #555D66;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    margin-left: 4px;
+}
+
+.closeIcon {
+    color: #fff;
+}
