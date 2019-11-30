@@ -1,22 +1,7 @@
 import React from 'react';
-import './TagsInput.css';
+import Tag from './Tag';
 
-const Tag = ({ tagname, index, handleTagDeleteClick }) => (
-    <div className="tag">
-        {tagname}
-        <button
-            className="deleteBtn"
-            title="移除標籤"
-            onClick={() => {
-
-                handleTagDeleteClick(index);
-
-            }}
-        >
-            <span className="closeIcon">x</span>
-        </button>
-    </div>
-);
+import styles from './TagsInput.module.css';
 
 class TagsInput extends React.Component {
 
@@ -25,10 +10,6 @@ class TagsInput extends React.Component {
         super(props);
 
         this.state = {
-            tags: [
-                'google',
-                'apple'
-            ],
             tagValue: ''
         };
 
@@ -38,16 +19,11 @@ class TagsInput extends React.Component {
 
     handleTagDeleteClick = (index) => {
 
-        this.setState((state) => {
+        const tags = [...this.props.tags];
+        tags.splice(index, 1);
 
-            const tags = [...state.tags];
-            tags.splice(index, 1);
-
-            return {
-                tags
-            };
-
-        }, this.focusInput);
+        this.props.handleTagsChange(tags);
+        this.focusInput();
 
     }
 
@@ -81,9 +57,10 @@ class TagsInput extends React.Component {
         if ((e.key === 'Enter' || e.key === ',') &&
             e.target.value !== '') {
 
-            const tags = [...this.state.tags, e.target.value];
+            const tags = [...this.props.tags, e.target.value];
+            this.props.handleTagsChange(tags);
+
             this.setState({
-                tags,
                 tagValue: ''
             });
 
@@ -94,9 +71,9 @@ class TagsInput extends React.Component {
     handleInputKeyDown = (e) => {
 
         // press backspace
-        if (e.target.value === '' && e.keyCode === 8 && this.state.tags.length) {
+        if (e.target.value === '' && e.keyCode === 8 && this.props.tags.length) {
 
-            this.handleTagDeleteClick(this.state.tags.length - 1);
+            this.handleTagDeleteClick(this.props.tags.length - 1);
 
         }
 
@@ -112,17 +89,17 @@ class TagsInput extends React.Component {
 
         return (
 
-            <div className="container">
+            <div className={styles.container}>
 
                 <div
-                    className={`tagWrapper 
+                    className={`${styles.tagWrapper}
                         ${this.state.active
-                                ? ('active')
+                                ? (styles.active)
                                 : ('')}`}
                     onClick={this.focusInput}
                 >
                     {
-                        this.state.tags.map((tagname, idx) => (
+                        this.props.tags.map((tagname, idx) => (
 
                             <Tag
                                 key={idx}
@@ -134,7 +111,7 @@ class TagsInput extends React.Component {
                         ))
                     }
                     <input
-                        className="tagInput"
+                        className={styles.tagInput}
                         placeholder="請輸入..."
                         size="4"
                         ref={this.tagInputRef}
@@ -146,7 +123,7 @@ class TagsInput extends React.Component {
                         onKeyDown={this.handleInputKeyDown}
                     />
                 </div>
-                
+
             </div>
 
         );

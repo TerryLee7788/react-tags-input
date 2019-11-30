@@ -1,15 +1,21 @@
-import React from 'react';
-import './App.css';
-import TagsInput from './TagsInput';
+import React, { useState } from 'react';
+import TagsInput from './Components/TagsInput';
 
-function App() {
-  return (
-    <div className="App">
+function App () {
+
+    const [tags, setTags] = useState([
+        'google',
+        'apple'
+    ]);
+
+    return (
         <div className="tagsInput">
-            <TagsInput/>
+            <TagsInput
+                tags={tags}
+                handleTagsChange={setTags}
+            />
         </div>
-    </div>
-  );
+    );
 }
 
 export default App;
